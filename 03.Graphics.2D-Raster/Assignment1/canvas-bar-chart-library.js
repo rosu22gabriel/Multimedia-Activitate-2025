@@ -49,6 +49,14 @@ export class BarChart {
             if (options.drawOutline) {
                 context.strokeRect(barX, barY, barWidth / 2, barHeight);
             }
+
+            context.fillStyle = 'black';
+            context.font = '14px Arial';
+            context.textAlign = 'center';
+            context.fillText(values[i], barX + barWidth / 4, barY - 5);
+
+
+            context.fillStyle = 'red';
         }
 
         context.restore();

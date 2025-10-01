@@ -7,7 +7,7 @@
 </head>
 <body>
     <form>
-        <input id="tbValues" type="text" value="10,20,30,40,50">
+        <input id="tbValues" type="text" value="12, 13, 3, 2, 1, 10, 7, 18">
         <button id="btnDraw" type="button">Draw</button>
     </form>
 
@@ -43,6 +43,35 @@
             ev.currentTarget.setAttribute('href', dataUrl);
         })
 
+
+        // function resizeCanvas(canvas) {
+        //     // Get the display size from CSS
+        //     const displayWidth  = canvasChart.clientWidth;
+        //     const displayHeight = canvasChart.clientHeight;
+
+        //     // Match the canvas internal resolution to the display size
+        //     if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+        //         canvas.width  = displayWidth;
+        //         canvas.height = displayHeight;
+        //     }
+        // }
+
+        // function redrawChart() {
+        //     resizeCanvas(canvasChart);
+        //     const tbValues = document.getElementById("tbValues");
+        //     const values = tbValues.value.split(',').map(Number);
+        //     barChart.draw(values, options);
+        // }
+
+        // btnDraw.addEventListener('click', redrawChart);
+        // window.addEventListener('resize', redrawChart);
+
+        btnDownload.addEventListener("click", (ev) => {
+            const dataUrl = canvasChart.toDataURL("image/png");
+            ev.currentTarget.setAttribute('href', dataUrl);
+        });
+
+        // redrawChart();
     </script>
 </body>
 </html>
