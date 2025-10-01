@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Chart</title>
+</head>
+<body>
+    <form>
+        <input id="tbValues" type="text" value="10,20,30,40,50">
+        <button id="btnDraw" type="button">Draw</button>
+    </form>
+
+    Click on the bar chart to download it <br>
+
+    <a id="btnDownload" href="#" download="barchart">
+        <canvas id="canvasChart" style="width: 300px; height: 200px">
+            Your browser does not support the canvas element.
+        </canvas>
+    </a>
+
+    <script type="module">
+        import { BarChart } from "./canvas-bar-chart-library.js";
+
+        const canvasChart = document.getElementById("canvasChart");
+        const btnDraw = document.getElementById("btnDraw");
+
+        const barChart = new BarChart(canvasChart);
+
+        const options = { 
+            'drawOutline': true
+        }
+
+        btnDraw.addEventListener('click', () => {
+            const tbValues = document.getElementById("tbValues");
+            const values = tbValues.value;
+            barChart.draw(values.split(',').map(Number), options);
+        });
+
+
+        btnDownload.addEventListener("click", (ev) => {
+            const dataUrl = canvasChart.toDataURL("image/png");
+            ev.currentTarget.setAttribute('href', dataUrl);
+        })
+
+    </script>
+</body>
+</html>
