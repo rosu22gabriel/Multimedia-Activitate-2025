@@ -41,7 +41,7 @@ export class BarChart {
 
         for (let i = 0; i < values.length; i++) { 
             const barHeight = values[i] * f * 0.9;
-            const barX = i * barWidth / 4;
+            const barX = i * barWidth + barWidth / 4;
             const barY = this.#canvas.height - barHeight;
 
             context.fillRect(barX, barY, barWidth / 2, barHeight);

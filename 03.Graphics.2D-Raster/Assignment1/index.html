@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Bar Chart</title>
 </head>
 <body>
@@ -17,6 +18,10 @@
         <canvas id="canvasChart" style="width: 300px; height: 200px">
             Your browser does not support the canvas element.
         </canvas>
+    </a>
+
+    <a id="altBtnDownload" href="#" download="barchart">
+        Download
     </a>
 
     <script type="module">
@@ -43,6 +48,11 @@
             ev.currentTarget.setAttribute('href', dataUrl);
         })
 
+        altBtnDownload.addEventListener("click", (ev) => {
+            const dataUrl = canvasChart.toDataURL("image/png");
+            ev.currentTarget.setAttribute('href', dataUrl);
+        })
+
 
         // function resizeCanvas(canvas) {
         //     // Get the display size from CSS
@@ -65,11 +75,6 @@
 
         // btnDraw.addEventListener('click', redrawChart);
         // window.addEventListener('resize', redrawChart);
-
-        btnDownload.addEventListener("click", (ev) => {
-            const dataUrl = canvasChart.toDataURL("image/png");
-            ev.currentTarget.setAttribute('href', dataUrl);
-        });
 
         // redrawChart();
     </script>
