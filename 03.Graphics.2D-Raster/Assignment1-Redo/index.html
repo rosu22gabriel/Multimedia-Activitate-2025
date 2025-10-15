@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarChart</title>
+</head>
+<body>
+    <form>
+        <input id="tbValues" type="text" value="12, 20, 21, 30, 40"/>
+        <button id="btnDraw" type="button">Draw</button> 
+    </form>
+
+    <a id="btnDownload" href="#" download="barchart">
+        <canvas id="canvasChart" style="width: 300px; height: 200px">
+            Your browser does not support the canvas element.
+        </canvas>
+    </a>
+
+    <a id="altBtnDownload" href="#" download="barchart">
+        Download
+    <a>
+
+    <script>
+        import { BarChart } from './canvas-bar-chart-library.js';
+
+        const canvasChart = document.getElementById('canvasChart');
+        const btnDownload = document.getElementById('btnDownload');
+        const btnDraw = document.getElementById('btnDraw');
+        const altBtnDownload = document.getElementById('altBtnDownload');
+        const barChart = new BarChart(canvasChart);
+
+        const options = { 
+            'drawOutline': true
+        }
+
+        btnDraw.addEventListener('click', () => { 
+            tbValues = document.getElementById('tbValues');
+            values = tbValues.value;
+            barChart.draw(values.split(',').map(Number), option);
+        })
+
+        btnDownload.addEventListener('click', (ev) =>  { 
+            const dataUrl = canvasChart.toDataUrl("image/png");
+            ev.currentTarget.setAttribute(href, dataUrl);
+        })
+
+        altBtnDownload.addEventListener('click', (ev) =>  { 
+            const dataUrl = canvasChart.toDataUrl("image/png");
+            ev.currentTarget.setAttribute(href, dataUrl);
+        })
+
+    </script>
+
+
+</body>
+</html>
