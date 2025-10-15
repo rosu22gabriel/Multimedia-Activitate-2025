@@ -1,0 +1,16 @@
+#altBtnDownload {
+    background-color: lightgray; 
+    text-decoration:none; 
+    display: flex; 
+    width: 70px;
+    color: black; 
+    border: 1px solid black;
+    border-radius: 3px;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 10px;
+}
+
+#altBtnDownload:hover {
+    background-color: gray;
+}

@@ -44,6 +44,8 @@ export class Barchart {
             context.strokeStyle = 'black';
             context.strokeRect(barX, barY, barWidth / 2, barHeight);
         }
+
+        context.restor();
     }
 
 
