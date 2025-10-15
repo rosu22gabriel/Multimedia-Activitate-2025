@@ -14,3 +14,8 @@
 #altBtnDownload:hover {
     background-color: gray;
 }
+
+#canvasChart { 
+    width: 50%;
+    height: 50%;
+}
