@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 - BarChart</title>
+</head>
+<body>
+    
+    <canvas id="canvas-chart" style="width: 600px; height: 150px">
+        Your browser does not support the canvas element.
+    </canvas>
+    <a id="chart-download-link" href="#" download="barchart">Download</a>
+    <button id="chart-download-button">Download</button>
+
+
+    <script type="module">
+        import {BarChart} from "./canvas-bar-chart-library.js";
+
+        //const canvasChart = document.getElementById('canvas-chart');
+        const canvasChart = document.querySelector('#canvas-chart');
+        canvasChart.width = 600;
+        const chart = new BarChart(canvasChart);
+        chart.draw([10, 20, 30, 40]);
+
+        const chartDownloadLink = document.getElementById('chart-download-link')
+        chartDownloadLink.addEventListener('click', () => {
+            const dataURL = canvasChart.toDataURL('image/jpeg');
+            // console.log(dataUrl)
+            chartDownloadLink.href = dataURL;
+        })
+
+        document.getElementById('chart-download-button')
+                .addEventListener('click', () => {
+                    const dataURL = canvasChart.toDataURL();
+
+                    // Create a HTMLLinkElement
+                    const link = document.createElement('a');
+                    link.href = dataURL;
+                    link.download = 'chart.png';
+                    link.click();
+                });
+
+    </script>
+</body>
+</html>
