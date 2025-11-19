@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTM5Multimedia - Histogram</title>
+</head>
+<body>
+    <!-- <img id="image"> -->
+    <canvas id="image" style="max-width: 600px; max-height: 300px">
+        Your browser does not support the image element.
+    </canvas>
+
+    <canvas id="histogram">
+        Your browser does not support the image element.
+    </canvas>
+
+    <script type="module">
+        import {BarChart} from './canvas-bar-chart-library.js'
+
+        const image = document.getElementById('image');
+        const imageCtx = image.getContext('2d');
+
+        const histogram = document.getElementById('histogram');
+
+        const barChart = new BarChart(histogram);
+
+        document.addEventListener('dragover', (e)=>{
+            e.preventDefault();
+        });
+
+        document.addEventListener('drop', (e)=>{
+            e.preventDefault();
+
+            const dataTransfer = e.dataTransfer;
+            const files = e.dataTransfer.files;
+            if(files.length > 0){
+                const file = files[0];
+
+                const reader = new FileReader();
+                reader.addEventListener('load', ()=>{
+                    const dataUrl = reader.result;
+                    //console.log(dataUrl);
+                    //image.src = dataUrl;
+
+                    const img = document.createElement('img');
+                    img.addEventListener('load', ()=>{
+                        // Resize the canvas
+                        image.width = img.naturalWidth;
+                        image.height = img.naturalHeight;
+                        // Draw the image on the canvas
+                        imageCtx.drawImage(img, 0, 0);
+                        // getImageData(float sx, float sy, float sw, float sh)
+                        // Get the imageData for the entire canvas
+                        const imageData = imageCtx.getImageData(0, 0, image.width, image.height);
+                        // console.log(imageData);
+                        const data = imageData.data;
+
+                        // Create a vector with 256 elements, all of them 0
+                        const vector = new Array(256).fill(0);
+
+                        const histR = Array(256).fill(0);
+                        const histG = Array(256).fill(0);
+                        const histB = Array(256).fill(0);
+                        // console.log(vector);
+                        for(let i = 0; i < data.length; i += 4) {
+                            const r = data[i];  // red
+                            const g = data[i + 1]; // green
+                            const b = data[i + 2]; // blue
+                            // const a = data[i + 3] // alpha
+
+                            vector[r]++;
+                            //medie
+                            const a = Math.round((r+g+b)/3);
+                            vector[a]++;
+                            
+                            histR[r]++;
+                            histG[g]++;
+                            histB[b]++;
+                        }
+                        barChart.draw(vector);
+                        barChart.draw(histR);
+                        barChart.draw(histG);
+                        barChart.draw(histB);
+                    })
+                    img.src = dataUrl;
+                })
+                reader.addEventListener('error', ()=>{
+                    alert('Error');
+                })
+                reader.readAsDataURL(file);
+                
+            }
+        })
+
+    </script>
+</body>
+</html>
