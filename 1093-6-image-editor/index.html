@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 - ImageEditor</title>
+</head>
+<body>
+    <canvas id="visibleCanvas">
+        Your browser does not support the canvas element.
+    </canvas>
+
+    <input id="fileBrowser" type="file" accept="image/*">
+    
+    <div>
+        <button type="button" data-effect="normal">Normal</button>
+        <button type="button" data-effect="grayscale">Grayscale</button>
+        <button type="button" data-effect="sepia">Sepia</button>
+        <button type="button" data-effect="threshold">Threshold</button>
+        <button type="button" id="btnSave"> Save </button>
+    </div>
+
+    <script type="module">
+        import {ImageEditor} from './image-editor.js'
+
+        const visibleCanvas = document.getElementById('visibleCanvas');
+        const fileBrowser = document.getElementById('fileBrowser');
+
+        const imageEditor = new ImageEditor(visibleCanvas);
+
+        fileBrowser.addEventListener('change', ()=>{
+            
+            if(fileBrowser.files.length > 0){
+                const file = fileBrowser.files[0];
+                //console.log(file);
+
+                const reader = new FileReader();
+                reader.addEventListener('load', ()=>{
+                    const dataURL = reader.result;
+                    //console.log(dataURL);
+                    const img = document.createElement('img');
+                    img.addEventListener('load', ()=>{
+                        imageEditor.changeImage(img);
+                    });
+                    img.src = dataURL;
+
+                })
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.querySelectorAll('button[data-effect]').forEach(button => {
+            button.addEventListener('click', () => { 
+                // const effect = button.getAttribute('data-effect');
+                const effect = button.dataset.effect;
+                imageEditor.changeEffect(effect);
+            })
+        });
+
+        document.getElementById('btnSave').addEventListener('click', () => { 
+            imageEditor.saveImage();
+        });
+
+    </script>
+</body>
+</html>
