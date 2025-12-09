@@ -1,0 +1,53 @@
+<!-- 
+a) Adăugați în codul HTML al paginii un element de tip <svg>, un element de tip <audio> și un <canvas>. 
+   Se va asigura afișarea interfeței pentru controlul fișierului audio disponibilă implicit în browser.
+b) Desenați un dreptunghi de culoare roșie în colțul dreapta jos al elementului svg. 
+   Dreptunghiul își va modifica culoarea atunci când cursorul mouse-ului se găsește deasupra sa.
+c) Afișați pe canvas durata fișierului audio cu un font la alegere. 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .svg-rect{ 
+            fill:red;
+        }
+        .svg-rect:hover{
+            fill:blue;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="svg-container">
+    </div>
+
+    <audio id="audioElement" src="" controls></audio>
+
+    <div id="canvas-container">
+    </div>
+
+    <script type="module">
+        import { SVGRectDrawer } from './svg-rect-drawer.js';
+        const svgContainer = document.getElementById('svg-container');
+
+        const svgWidth = 500;
+        const svgHeight = 400;
+        const rectWidth = 100;
+        const rectHeight = 50;
+
+        const svgRectDrawer = new SVGRectDrawer(svgContainer, svgWidth, svgHeight);
+        
+        const rectX = svgWidth - rectWidth;
+        const rectY = svgHeight - rectHeight;
+
+        svgRectDrawer.drawRect(rectX, rectY, rectWidth, rectHeight);
+    </script>
+
+    
+</body>
+</html>

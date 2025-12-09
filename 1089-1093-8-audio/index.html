@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 - Audio</title>
+</head>
+<body>
+    <audio id="audio"controls>
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="btn-play" type="button">Play</button>
+
+    <span id="audio-duration">-</span>
+
+    <script type="module">
+        const audio = document.getElementById('audio');
+        const btnPlay = document.getElementById('btn-play');
+        const audioDuration = document.getElementById('audio-duration');
+
+        btnPlay.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                btnPlay.textContent = 'Pause';
+            } else {
+                audio.pause();
+                btnPlay.textContent = 'Play';
+            }
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            audioDuration.textContent = audio.duration;
+        });
+
+        audio.src = 'media/O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3';
+
+    </script>
+</body>
+</html>

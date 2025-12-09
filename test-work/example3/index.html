@@ -1,0 +1,48 @@
+<!--
+a) Adaugati in codul HTML al paginii un element de tip <canvas> si un element de tip <audio>. Se va asigura afisarea interfetei pentru controlul fisierului audio disponibila implicit in browser.
+b) Modificati aplicatia dezvoltata astfel incat doar la finalul rularii fisierului audio sa se afiseze in centrul canvas-ului un text la alegere.
+c) Adaugati un buton care sa permita trecerea elementului audio in stare de rulare / pauza
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <audio id="audioElement" src="audio.mp3" controls>
+    </audio>
+
+    <div id="canvas-container"></div>
+
+    <button id="playButton"> play </button>
+    
+    <span id="audio-duration">-</span>
+
+    <script type="module">
+        const audio = document.getElementById('audio');
+        const btnPlay = document.getElementById('playButton');
+        const audioDuration = document.getElementById('audio-duration');
+
+        btnPlay.addEventListener('click', () => { 
+            if (audio.paused) {
+                audio.play();
+                btnPlay.textContent = 'Pause';
+            } else {
+                audio.pause(); 
+                btnPlay.textContent = 'Play';
+            }
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            audioDuration.textContent = audio.duration;
+        })
+
+
+    </script>
+
+
+</body>
+</html>
